@@ -26,7 +26,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
         # Add custom claims
-        token['username'] = user.userName
+        token['username'] = user.username
         token['eeemail']= user.email
         token['staff']= user.is_staff
         # ...
@@ -42,7 +42,7 @@ def index(r):
 @api_view(['POST'])
 def register(request):
     isStaff=request.data["staff"]
-    User.objects.create_user(userName=request.data['userName'], email=request.data['email'], password=request.data['password'], is_staff=isStaff)
+    User.objects.create_user(username=request.data['userName'], email=request.data['email'], password=request.data['password'], is_staff=isStaff)
     print (request.data["userName"])
     print (request.data["email"])
     print (request.data["password"])
@@ -217,6 +217,7 @@ def getImages(request):
     for img in Product.objects.all():  # run on every row in the table...
         res.append({"title": img.title,
                     "content": img.content,
+                    "price": img.price,
                     "image":str(img.image) })  # append row by to row to res list
     return JsonResponse(res, safe=False)  # return array as json response
  

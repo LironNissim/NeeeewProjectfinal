@@ -1,119 +1,125 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import {useSelector} from 'react-redux';
-import {selectUserName} from './app/loginSlice';
-import { Outlet, useAsyncValue } from 'react-router-dom';
-import MyNav from './app/MyNav';
-import axios from 'axios';
-import {API_URL, URL, IMAGES_URL} from './constants'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { API_URL, URL, IMAGES_URL } from "./app/constants/imgU";
 
-function AppOld() {
-  const URL= "http://127.0.0.1:8000/token/"
-  const userName = useSelector(selectUserName);
-  const [title, setTitle]=useState("");
-  const [content, setContent]=useState("");
-  const [image, setImage]=useState(null);
-  const [posts, setPosts]=useState([]);
-  const [call, setCall]=useState(true);
-  const [images, setImages]=useState([]);
+const AppOld = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [image, setImage] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [call, setCall] = useState(true);
+  const [images, setImages] = useState([])
+  const [price, setPrice] = useState([0])
 
-  useEffect(()=> {
-    axios (IMAGES_URL).then((result)=>setImages(result.data));
-    axios.get(API_URL).then((result)=>setPosts(result.data));
-    console.log("hi there");
+  useEffect(() => {
+    axios(IMAGES_URL).then((result) => setImages(result.data));
+    axios.get(API_URL).then((result) => setPosts(result.data));
+    console.log("Hi there");
     console.log(posts.length);
   }, [call]);
-    
 
-  const handleTitle=(e) => {
+  const handleTitle = (e) => {
     e.preventDefault();
     setTitle(e.target.value);
   };
-  const handleContent=(e) => {
+
+  const handleContent = (e) => {
     e.preventDefault();
     setContent(e.target.value);
   };
-  const handleImage=(e) => {
+
+  const handleImage = (e) => {
     e.preventDefault();
+    console.log(e.target.files);
     setImage(e.target.files[0]);
   };
-
-  const handleSubmit=(e) => {
+  const handlePrice = (e) => {
     e.preventDefault();
-    console.log(title,content,image);
+    setPrice(e.target.value);
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(title, content, image);
 
-    let form_data= new FormData();
+    let form_data = new FormData();
     form_data.append("image", image, image.name);
     form_data.append("title", title);
     form_data.append("content", content);
+    form_data.append("price", price);
 
-    let url= API_URL;
+    let url = API_URL;
+
     axios
       .post(url, form_data, {
         headers: {
-          "conent-type": "multipart/form-data",
+          "content-type": "multipart/form-data",
         },
       })
-      .then ((res)=> {
+      .then((res) => {
         console.log(res.data);
       })
-      .catch((err)=> console.log(err));
+      .catch((err) => console.log(err));
 
-      setTitle("");
-      setImage(null);
-      setContent("");
-    };
-    
+    setTitle("");
+    setImage(null);
+    setContent("");
+    setPrice("");
+  };
+
   return (
-    <div className="App"> 
-      {images.length>0 && images.map((img,i)=><div key={i}>
-      <img src={`http://127.0.0.1:8000/media/$(img.image}`} style= {{width:"100px"}} alt="a"></img>
-      Title: {img.title}
-      content: {img.content}
+    <div>
+      <h2>Home</h2>
+      {images.length > 0 && images.map((img, i) => <div key={i}>
+        <img src={`http://127.0.0.1:8000/media/${img.image}`} alt="a"></img>
       </div>)}
-        <img src="http//127.0.0.1:8000/media/Posted_images/jelly.jpg"></img>
-          <form onSubmit={handleSubmit}>
-            <p>
-              <input
-                  type="text"
-                  placeholder="Title"
-                  id="title"
-                  value={title}
-                  onChange={handleTitle}
-                  required  
-              ></input>
-            </p>
-            <p>
-              <input
-                type="text"
-                placeholder="Content"
-                id="content"
-                value={content}
-                onChange={handleContent}
-                required  
-              ></input>
-            </p>
-            <p>
-              <input
-                type="file"
-                id="image"
-                accept="image/png.image/jpeg"
-                onChange={handleImage}
-                required
-              ></input>
-            </p>  
-              <button type="submit"> Post</button>
-        </form> 
-            <nav style={{borderBottom:"solid 1px", paddingBottom: "1rem"}}>
-              <MyNav></MyNav>
-                {userName && <div>Hello:{userName}</div>} 
-              <Outlet></Outlet>
-            </nav>
-    </div>
-  )
-}
-export default AppOld;
+      <img src="http://127.0.0.1:8000/media/Posted_Images/"></img>
+      <form onSubmit={handleSubmit}>
+        <p>
+          <input
+            type="text"
+            placeholder="Title"
+            id="title"
+            value={title}
+            onChange={handleTitle}
+            required
+          ></input>
+        </p>
+        <p>
+          <input
+            type="text"
+            placeholder="Content"
+            id="content"
+            value={content}
+            onChange={handleContent}
+            required
+          ></input>
+        </p>
+        <p>
+          <input
+            type="number"
+            placeholder="price"
+            id="price"
+            onChange={handlePrice}
+            required
+          ></input>
+        </p>
+        <p>
+          <input
+            type="file"
+            id="image"
+            accept="image/png,image/jpeg"
+            onChange={handleImage}
+            required
+          ></input>
+        </p>
 
+        <button type="submit">Post</button>
+      </form>
+    </div>
+  );
+};
+
+export default AppOld;
 
  {/* {userFromToke.length > 0  && `  ${userFromToke}   is logged`} */}

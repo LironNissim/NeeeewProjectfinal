@@ -11,6 +11,8 @@ const MyNav = () => {
           <Link to= "/products">Products</Link>||{" "}
         <Link to= "/cart">My Cart</Link>||{" "}
         <Link to= "/orders">My Orders</Link>||{" "}
+        <Link to= "/getImages">Add Image</Link>||{" "}
+        <Link to= "/posts">Save Image</Link>||{" "}
         </nav>  
   </div>  
   )

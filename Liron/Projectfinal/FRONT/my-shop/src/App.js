@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectUserName } from './app/loginSlice';
 import { Outlet, useAsyncValue } from 'react-router-dom';
 import MyNav from './app/MyNav';
-import axios from 'axios';
+import AppOld from './AppOld';
 // import {API_URL, URL, IMAGES_URL} from './constants'
 
 function App() {

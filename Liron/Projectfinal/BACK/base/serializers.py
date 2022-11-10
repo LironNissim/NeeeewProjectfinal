@@ -6,24 +6,24 @@ from .models import Note,Pita
 
 
 class NoteSerializer(ModelSerializer):
-    class meta:
+    class Meta:
         model= Note
         fields='__all__'
 
 
 class PitaSerializer(ModelSerializer):
-    class meta:
+    class Meta:
         model= Pita
         fields='__all__'
 
 class ProductSerializer(ModelSerializer):
-    class meta:
+    class Meta:
         model= Product
         fields='__all__'
        
 
 class CategorySerializer(ModelSerializer):
-    class meta:
+    class Meta:
         model= Category
         fields='__all__'
 

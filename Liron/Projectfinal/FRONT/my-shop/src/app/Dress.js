@@ -15,7 +15,7 @@ const Dress = () => {
   const dispatch = useDispatch();
   const[price,setPrice]=useState(0);
   const[desc,setDesc]=useState("");
-  const[cid,setCid]=useState(0);
+  
 
   
   useEffect(()=>{
@@ -32,10 +32,8 @@ const Dress = () => {
       <input onChange={(e)=>setDesc(e.target.value)} style={{maxWidth:"80px"}}></input>{" "}<br></br>
       Price:{" "} 
       <input onChange={(e)=>setPrice(e.target.value)} style={{maxWidth:"30px"}}></input>{" "}
-      Category Id:{""}
-      <input onChange={(e)=>setCid(e.target.value)} style={{maxWidth:"30px"}}></input>{" "}
     
-      <button onClick={()=>dispatch(addProdAsync({desc:desc, price:price, cat_id_id:cid, token:token}))}>Add</button><br></br><br></br>
+      <button onClick={()=>dispatch(addProdAsync({desc:desc, price:price, token:token}))}>Add</button><br></br><br></br>
       
       {products.map((prod,i)=>(
       <div key={i}>

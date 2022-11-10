@@ -4,7 +4,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import {selectUserName} from './loginSlice';
 import { getProdAsync, selectProducts } from './productsSlice';
 import {selectCats} from './catSlice';
-import {sendCart, clearAr} from './orderSlice';
+import {sendCart} from './orderSlice';
 
 const Products = () => {
     let params=useParams();
@@ -71,7 +71,7 @@ const Products = () => {
       {allProducts.map(prod=>
           <div>
                 {prod.desc}{" "}{" "}{" "}{prod.price}{"$"}{" "} 
-                <button onClick={()=>dispatch(addToCart({_id:prod.id, desc:prod.desc, amount:1, price:prod.price, cat_id:prod.cat_id}))}>Add to Cart</button>
+                <button onClick={()=>dispatch(addToCart({_id:prod.id, desc:prod.desc, amount:1, price:prod.price}))}>Add to Cart</button>
           </div>)}
       {myCart.map(prod =>
           <div><button onClick={() => dispatch(addToCart({_id: prod.id, desc: prod.des, amount: 1, price: prod.price }))}>+</button>

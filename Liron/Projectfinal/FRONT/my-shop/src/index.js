@@ -14,6 +14,7 @@ import MiniCart from './app/MiniCart';
 import Category from './app/Category';
 import ACart from './app/ACart';
 import Cart from './app/Cart';
+import AppOld from './AppOld';
 // import { configureStore } from '@reduxjs/toolkit';
 
 const container = document.getElementById('root');
@@ -26,6 +27,8 @@ root.render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route path="/products" element={<Products />} />
+            <Route path="/getImages" element={<AppOld />} />
+            <Route path="/posts" element={<AppOld />} />
             <Route path="/orders" element={<Cart />} />
             <Route path="/Dress" element={<Dress />} />
             <Route path="/Login" element={<Login />} />
